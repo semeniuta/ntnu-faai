@@ -31,3 +31,11 @@ def plot_vector(v, origin=None, color=None):
     
     plt.arrow(origin[0], origin[1], v1, v2, 
               head_width=.2, head_length=.4, length_includes_head=True, color=c)
+
+
+def rotation_matrix_2d(theta):
+
+    c = np.cos(theta)
+    s = np.sin(theta)
+
+    return np.array([[c, -s], [s, c]])
