@@ -41,7 +41,7 @@ def rotation_matrix_2d(theta):
     return np.array([[c, -s], [s, c]])
 
 
-def generate_noisy_data(coefs, normal_std=1., xmin=-5, xmax=5, step=0.5):
+def generate_noisy_data_poly1d(coefs, normal_std=1., xmin=-5, xmax=5, step=0.5):
 
     x = np.arange(xmin, xmax, step)
 
@@ -53,3 +53,22 @@ def generate_noisy_data(coefs, normal_std=1., xmin=-5, xmax=5, step=0.5):
     y_noisy = y_true + noise
 
     return x, y_noisy
+
+
+def generate_noisy_data_poly1d_Ab(coefs, normal_std=1., xmin=-5, xmax=5, step=0.5):
+
+    x = np.arange(xmin, xmax, step)
+
+    y_true = np.zeros_like(x)
+    for i, c in enumerate(coefs):
+        y_true += c*(x**i)
+
+    noise = np.random.normal(scale=normal_std, size=len(y_true))
+    y_noisy = y_true + noise
+
+    A_size = (len(x), len(coefs))
+    A = np.ones(A_size)
+    for j in range(1, len(coefs)):
+        A[:, j] = x**j
+
+    return A, y_noisy
