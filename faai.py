@@ -39,3 +39,17 @@ def rotation_matrix_2d(theta):
     s = np.sin(theta)
 
     return np.array([[c, -s], [s, c]])
+
+
+def generate_noisy_data(coefs, normal_std=1., xmin=-5, xmax=5, step=0.5):
+
+    x = np.arange(xmin, xmax, step)
+
+    y_true = np.zeros_like(x)
+    for i, c in enumerate(coefs):
+        y_true += c*(x**i)
+
+    noise = np.random.normal(scale=normal_std, size=len(y_true))
+    y_noisy = y_true + noise
+
+    return x, y_noisy
