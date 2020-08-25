@@ -41,6 +41,43 @@ def rotation_matrix_2d(theta):
     return np.array([[c, -s], [s, c]])
 
 
+class NoisyPolynomial:
+
+    def __init__(self, coefs, normal_std=1., xmin=-5, xmax=5, step=0.5, random_state=None):
+
+        def compute_y_true(x, coefs):
+            
+            y_true = np.zeros_like(x)
+            for i, c in enumerate(coefs):
+                y_true += c*(x**i)
+            
+            return y_true
+
+        def create_A(x, coefs):
+            
+            A_size = (len(x), len(coefs))
+            A = np.ones(A_size)
+            for j in range(1, len(coefs)):
+                A[:, j] = x**j
+
+            return A
+
+        self.x = np.arange(xmin, xmax, step)
+        self.y_true = compute_y_true(self.x, coefs)
+        
+        if random_state is not None:
+            np.random.seed(random_state)
+        noise = np.random.normal(scale=normal_std, size=len(self.y_true))
+        
+        self.y_noisy = self.y_true + noise
+
+        self.A = create_A(self.x, coefs)
+    
+    @property
+    def b(self):
+        return self.y_noisy
+
+
 def generate_noisy_data_poly1d(coefs, normal_std=1., xmin=-5, xmax=5, step=0.5):
 
     x = np.arange(xmin, xmax, step)
