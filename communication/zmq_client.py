@@ -8,7 +8,7 @@ context = zmq.Context()
 
 #  Socket to talk to server
 socket = context.socket(zmq.REQ)
-socket.connect("tcp://localhost:5555")
+socket.connect("tcp://127.0.0.1:5555")
 
 #  Do 10 requests, waiting each time for a response
 for i in range(10):
