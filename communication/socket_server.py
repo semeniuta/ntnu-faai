@@ -21,11 +21,16 @@ def read_all(conn_socket):
     res = b''
 
     while True:
+        
+        print('Read attempt')
+
         data = conn_socket.recv(BUFFER_SIZE)
         res += data
 
         if len(data) < BUFFER_SIZE:
             break
+
+    return res
 
 
 def on_accept(conn_socket):
@@ -39,11 +44,11 @@ def on_accept(conn_socket):
     
     except ConnectionResetError as e:
         print('Closing connection (due to connection being reset by peer)')
-        conn.close()
+        conn_socket.close()
 
     if data is None:
         print("Closing connection (due to peer's closing its socket)")
-        conn.close()
+        conn_socket.close()
 
 
 if __name__ == '__main__':
