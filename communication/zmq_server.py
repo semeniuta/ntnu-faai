@@ -13,7 +13,7 @@ while True:
     try:
         
         message = socket.recv()
-        print('Received request: %s', message)
+        print('Received request:', message)
 
         number = float(message)
         response = b'ok' if number < 70 else b'high'
