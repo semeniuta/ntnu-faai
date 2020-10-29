@@ -34,6 +34,18 @@ def plot_vector(v, origin=None, color=None):
               head_width=.2, head_length=.4, length_includes_head=True, color=c)
 
 
+def plot_frame(T, c=None):
+
+    vecs = ([0, 0, 1], [1, 0, 1], [0, 1, 1])
+
+    new_origin = h2e(np.dot(T, vecs[0]))
+    i = h2e(np.dot(T, vecs[1])) - new_origin
+    j = h2e(np.dot(T, vecs[2])) - new_origin
+
+    plot_vector(i, origin=new_origin, color=c)
+    plot_vector(j, origin=new_origin, color=c)
+
+
 def rotation_matrix_2d(theta):
 
     c = np.cos(theta)
