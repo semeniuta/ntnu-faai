@@ -42,6 +42,26 @@ def rotation_matrix_2d(theta):
     return np.array([[c, -s], [s, c]])
 
 
+def se2(translation, rotation_theta):
+
+    R = rotation_matrix_2d(rotation_theta)
+
+    T = np.zeros((3, 3), dtype=np.float)
+    T[:2, :2] = R
+    T[:2, 2] = translation
+    T[2, 2] = 1
+
+    return T
+
+
+def h2e(x):
+    """
+    Transform a homogeneous vector to Euclidean form
+    """
+
+    return x[:-1] / x[-1]
+
+
 class NoisyPolynomial:
 
     def __init__(self, coefs, normal_std=1., xmin=-5, xmax=5, step=0.5, random_state=None):
