@@ -74,6 +74,24 @@ def h2e(x):
     return x[:-1] / x[-1]
 
 
+def e2h(x):
+    """
+    Transform a Euclidean vector to homogeneous form
+    """
+
+    shape = list(x.shape)
+    shape[0] += 1
+
+    res = np.ones(shape)
+
+    if x.ndim == 1:
+        res[:-1] = x
+    else:
+        res[:-1, :] = x
+
+    return res
+
+
 class NoisyPolynomial:
 
     def __init__(self, coefs, normal_std=1., xmin=-5, xmax=5, step=0.5, random_state=None):
