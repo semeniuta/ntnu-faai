@@ -34,9 +34,13 @@ def plot_vector(v, origin=None, color=None):
               head_width=.2, head_length=.4, length_includes_head=True, color=c)
 
 
-def plot_frame(T, c=None):
+def plot_frame(T, c=None, scale_factor=1):
 
-    vecs = ([0, 0, 1], [1, 0, 1], [0, 1, 1])
+    vecs = (
+        [0, 0, 1], 
+        [scale_factor, 0, 1],
+        [0, scale_factor, 1]
+    )
 
     new_origin = h2e(np.dot(T, vecs[0]))
     i = h2e(np.dot(T, vecs[1])) - new_origin
