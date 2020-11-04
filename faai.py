@@ -96,6 +96,23 @@ def e2h(x):
     return res
 
 
+def hnormalize(p):
+    """
+    Normalize a homogeneous vector p so that p[-1] = 1.
+    Works also for vectors horizontally stacked in a matrix
+    (where each vector is a column)
+    """
+
+    if p.ndim == 1:
+        res = p / p[-1]
+    else:
+        res = np.ones_like(p)
+        for j in range(p.shape[1]):
+            res[:2, j] = p[:2, j] / p[2, j]
+
+    return res
+
+
 class NoisyPolynomial:
 
     def __init__(self, coefs, normal_std=1., xmin=-5, xmax=5, step=0.5, random_state=None):
