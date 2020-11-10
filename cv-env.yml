@@ -1,0 +1,16 @@
+name: faai-cv
+channels:
+- conda-forge
+- defaults
+dependencies:
+ - python=3.7
+ - opencv=3.4
+ - ipython
+ - jupyter
+ - numpy
+ - scipy
+ - pandas
+ - scikit-image
+ - scikit-learn
+ - matplotlib
+ - pip
